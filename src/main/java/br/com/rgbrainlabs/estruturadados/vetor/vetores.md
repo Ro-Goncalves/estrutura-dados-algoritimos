@@ -1,0 +1,22 @@
+# Estrutura de Dados: Vetores
+
+O **vetor** é uma estrutura de dados que armazena uma sequência de valores do mesmo tipo. Eles podem parecer rígidos, mas é essa rigidez que garante sua performance. Com essa estrutura, torna-se fácil prever onde cada valor está localizado.
+
+Vamos imaginar a criação de um **vetor** de `inteiros` com `5` "espaços". Além disso, considere que cada inteiro ocupe um `tamanho 3` em memória — guarde as facas das críticas técnicas, estou usando uma abstração simplista, mas não menos precisa. Isso faz com que o computador reserve um espaço contínuo de memória, como, por exemplo, o `endereço de memória` de `20 a 34` (se o primeiro começa em 20, teremos 5 caixas de tamanho 3, ocupando as posições 20, 23, 26, 29 e 32). O **vetor**, por sua vez, armazena o endereço inicial do primeiro elemento.
+
+> A criação dessas "caixas" com tamanho fixo justifica o porquê de um **vetor** possuir somente um tipo de dado. Caso tivesse tipos diferentes, as caixas teriam tamanhos diferentes, quebrando a lógica de acesso rápido.
+
+Para que o computador busque o valor de uma das `caixas`, basta pegar o endereço inicial do vetor e somar o deslocamento (índice multiplicado pelo `tamanho do nosso inteiro`). Essa é a mágica dos **vetores**: por terem itens de um só tipo, todos armazenados um ao lado do outro, fica fácil e rápido recuperar qualquer valor. O ganho de performance não se limita à operação de leitura, mas também à de escrita. Ao comandar "guarde o valor *7* na caixa *1*", o sistema operacional consegue localizar facilmente onde ela se encontra.
+
+Além disso, uma vez criado, um vetor tradicional não pode ter seu tamanho alterado.
+
+Algumas linguagens de programação criam estruturas de dados baseadas em vetores, como listas dinâmicas. Essas abstrações permitem alterar o tamanho e, em alguns casos, adicionar tipos diferentes de dados, mas tudo isso tem um custo computacional. Quando elas "alteram" o tamanho de um vetor, o que realmente acontece nos bastidores é a criação de um novo vetor com o tamanho desejado e a cópia dos dados do antigo para o novo. Já quando permitem tipos diferentes, uma das estratégias é usar o tamanho do maior item como padrão para todas as "caixas". Para ficar um pouco mais palatável: se o primeiro item tem tamanho 2, o segundo 4 e o terceiro 6, o sistema criaria três caixas, todas com tamanho 6.
+
+> Ao tentar quebrar a rigidez dos vetores, adicionamos uma carga computacional maior, consumindo mais recursos nas operações de escrita, leitura e no armazenamento dos valores.
+
+## Referências
+
+- [Loiane Groner - Estrutura de Dados e Algoritmos com Java](https://www.youtube.com/watch?v=N3K8PjFOhy4&list=PLGxZ4Rq3BOBrgumpzz-l8kFMw2DLERdxi&ab_channel=LoianeGroner)
+- [Franklyn Sancho - Vetores e matrizes (Estrutura de dados)](https://franklyn-sanc.medium.com/vetores-e-matrizes-estrutura-de-dados-375c87832f34)
+- [Ramon Sorage](https://medium.com/@rsorage/arrays-a-base-da-organiza%C3%A7%C3%A3o-de-dados-9749827e1e5f)
+- [Ryan Sczayka](https://medium.com/@ryan_sczayka/estrutura-de-dados-arrays-e62b8359a27f)
