@@ -2,7 +2,7 @@
 
 O **vetor** é uma estrutura de dados que armazena uma sequência de valores do mesmo tipo. Eles podem parecer rígidos, mas é essa rigidez que garante sua performance. Com essa estrutura, torna-se fácil prever onde cada valor está localizado.
 
-Vamos imaginar a criação de um **vetor** de `inteiros` com `5` "espaços". Além disso, considere que cada inteiro ocupe um `tamanho 3` em memória — guarde as facas das críticas técnicas, estou usando uma abstração simplista, mas não menos precisa. Isso faz com que o computador reserve um espaço contínuo de memória, como, por exemplo, o `endereço de memória` de `20 a 34` (se o primeiro começa em 20, teremos 5 caixas de tamanho 3, ocupando as posições 20, 23, 26, 29 e 32). O **vetor**, por sua vez, armazena o endereço inicial do primeiro elemento.
+Vamos imaginar a criação de um **vetor** de `inteiros` com `5` "espaços". Além disso, considere que cada inteiro ocupe um `tamanho 3` em memória — guarde as facas das críticas técnicas, estou usando uma abstração simplista, mas não menos precisa. Isso faz com que o computador reserve um espaço contínuo de memória, como, por exemplo, o `endereço de memória` de `20 a 34` (se o primeiro começa em 20, teremos 5 caixas de tamanho 3, ocupando as posições 20, 23, 26, 29 e 32). O **vetor**, por sua vez, armazena o endereço inicial de cada elemento.
 
 > A criação dessas "caixas" com tamanho fixo justifica o porquê de um **vetor** possuir somente um tipo de dado. Caso tivesse tipos diferentes, as caixas teriam tamanhos diferentes, quebrando a lógica de acesso rápido.
 
@@ -13,6 +13,52 @@ Além disso, uma vez criado, um vetor tradicional não pode ter seu tamanho alte
 Algumas linguagens de programação criam estruturas de dados baseadas em vetores, como listas dinâmicas. Essas abstrações permitem alterar o tamanho e, em alguns casos, adicionar tipos diferentes de dados, mas tudo isso tem um custo computacional. Quando elas "alteram" o tamanho de um vetor, o que realmente acontece nos bastidores é a criação de um novo vetor com o tamanho desejado e a cópia dos dados do antigo para o novo. Já quando permitem tipos diferentes, uma das estratégias é usar o tamanho do maior item como padrão para todas as "caixas". Para ficar um pouco mais palatável: se o primeiro item tem tamanho 2, o segundo 4 e o terceiro 6, o sistema criaria três caixas, todas com tamanho 6.
 
 > Ao tentar quebrar a rigidez dos vetores, adicionamos uma carga computacional maior, consumindo mais recursos nas operações de escrita, leitura e no armazenamento dos valores.
+
+## Adicionar
+
+Existem algumas estratégias para adicionar elementos em um vetor. Pensando logicamente, podemos, por exemplo, usar um `for` percorrendo todo o vetor até localizar uma posição (*caixa*) vazia e colocar o valor nela:
+
+```java
+public void adicionar(String elemento) {
+    for (int i = 0; i < this.elementos.length; i++) {
+        if (this.elementos[i] == null) {
+            this.elementos[i] = elemento;
+            break;
+        }
+    }
+}
+```
+
+À primeira vista essa solução parece boa, mas perceba que essa lógica tem um custo computacional relativamente alto. Sempre que adicionamos um item, precisamos percorrer o vetor procurando uma posição vazia, mesmo que já saibamos onde o próximo elemento deveria estar.
+
+Uma solução mais eficiente é manter uma variável `tamanho`, que armazena o total de elementos já presentes no vetor. Assim, não precisamos percorrer todas as posições: basta inserir diretamente no índice correspondente ao `tamanho`. A lógica fica assim:
+
+```java
+public void adicionar(String elemento) {
+    if (this.tamanho < this.elementos.length) {
+        this.elementos[this.tamanho] = elemento;
+        this.tamanho++;
+    } else {
+        throw new ArrayIndexOutOfBoundsException();
+    }
+}
+```
+
+Dessa forma não percorremos o vetor todas as vezes. Caso tentemos inserir além do limite, a função lançará uma exceção.
+
+Outra alternativa é usar o mesmo princípio, mas, em vez de lançar uma exceção, retornar um valor booleano indicando se a inserção foi bem-sucedida:
+
+```java
+public boolean adicionar(String elemento) {
+    if (this.tamanho < this.elementos.length) {
+        this.elementos[this.tamanho] = elemento;
+        this.tamanho++;
+        return true;
+    } else {
+        return false;
+    }
+}
+```
 
 ## Referências
 
