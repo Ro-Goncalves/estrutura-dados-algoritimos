@@ -60,6 +60,38 @@ public boolean adicionar(String elemento) {
 }
 ```
 
+## Tamanho e toString
+
+Podemos criar alguns métodos auxiliares para o nosso vetor. É comum vermos os métodos `size` e `toString` já implementados nas estruturas de dados fornecidas pelas linguagens de programação. Vamos criar os nossos.
+
+O primeiro é o mais simples: no método `adicionar`, já criamos o atributo `tamanho`. Portanto, basta retorná-lo:
+
+```java
+public int tamanho() {
+    return this.tamanho;
+}
+```
+
+Já o método `toString` pode ser implementado de diferentes formas. Uma opção seria utilizar o método `toString` da classe utilitária `Arrays`. Outra seria concatenar as strings manualmente.
+
+A primeira abordagem, apesar de prática, não é a mais interessante, pois exibiria todos os elementos do vetor, inclusive as posições que ainda não foram preenchidas.
+A segunda opção (concatenar diretamente com `String`) também não é recomendada, pois em Java as strings são imutáveis. Isso significa que cada concatenação cria um novo objeto em memória, o que traz um custo desnecessário.
+
+A solução mais eficiente é utilizar a classe `StringBuilder`, que permite a construção incremental de strings sem esse custo adicional. Veja o exemplo:
+
+```java
+@Override
+public String toString() {
+    var s = new StringBuilder();
+    s.append("[");
+    for (int i = 0; i < this.tamanho - 1; i++) {
+        s.append(this.elementos[i]).append(", ");
+    }
+    s.append(this.elementos[this.tamanho - 1]).append("]");
+    return s.toString();
+}
+```
+
 ## Referências
 
 - [Loiane Groner - Estrutura de Dados e Algoritmos com Java](https://www.youtube.com/watch?v=N3K8PjFOhy4&list=PLGxZ4Rq3BOBrgumpzz-l8kFMw2DLERdxi&ab_channel=LoianeGroner)

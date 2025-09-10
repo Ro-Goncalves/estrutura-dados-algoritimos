@@ -19,4 +19,18 @@ public class Vetor {
         }
     }
 
+    public int tamanho() {
+        return this.tamanho;
+    }
+
+    @Override
+    public String toString() {
+        var s = new StringBuilder();
+        s.append("[");
+        for (int i = 0; i < this.tamanho -1; i++) {
+            s.append(this.elementos[i] + ", ");
+        }
+        s.append(this.elementos[this.tamanho - 1] + "]");
+        return s.toString();
+    }
 }
